@@ -19,6 +19,7 @@ public class MixPaymentCheckoutServiceImpl implements CheckOutService{
             final double giftBalance = giftCardBalance.getBalance() - totalAmount;
             if (giftBalance > 0) {
                 giftCardBalance.setBalance(giftBalance);
+                return true;
             } else {
                 CustomerBalance customerBalance = findCustomerBalance(customer.getId());
                 final double mixBalance = giftCardBalance.getBalance() + customerBalance.getBalance() - totalAmount;

@@ -118,6 +118,10 @@ public class Main {
 
                         String productId = scanner.next();
 
+                        if (productId.equals("exit")){
+                            break;
+                        }
+
                         try {
                             Product product = findProductById(productId);
                             if (!putItemToCartIfStockAvailable(cart,product)){
@@ -129,6 +133,7 @@ public class Main {
                             continue;
                         }
 
+
                         System.out.println("Do you want to add more product. Type Y for adding more, N for exit");
 
                         String decision = scanner.next();
@@ -136,7 +141,11 @@ public class Main {
                             break;
                         }
                     }
+                    if (cart.getProductMap().isEmpty()){
+                        break;
+                    }
                     System.out.println("Seems there are discount options. Do you want to see and apply to your cart if it is applicable. For no discount type No");
+
                     for (Discount discount : StaticConstance.DISCOUNT_LIST){
                         System.out.println("discount id " + discount.getDiscountId() + " discount name: " + discount.getName());
                     }
@@ -155,6 +164,7 @@ public class Main {
 
                     OrderService orderService = new OrderServiceImpl();
                     String result = orderService.placeOrder(cart);
+
                     if (result.equals("Order has been placed successfully")){
                         System.out.println("Order is successful");
                         updateProductStock(cart.getProductMap());

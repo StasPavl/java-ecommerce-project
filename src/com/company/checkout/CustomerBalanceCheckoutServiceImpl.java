@@ -13,11 +13,14 @@ public class CustomerBalanceCheckoutServiceImpl  implements CheckOutService{
     public boolean checkout(Customer customer, Double totalAmount) {
         CustomerBalance customerBalance = findCustomerBalance(customer.getId());
         double finalBalance = customerBalance.getBalance() - totalAmount;
-        if (finalBalance<0){
+
+        if (finalBalance>0){
             customerBalance.setBalance(finalBalance);
             return true;
+        }else{
+            return false;
         }
-        return false;
+
     }
     private static CustomerBalance findCustomerBalance(UUID customerId){
         for (Balance customerBalance : StaticConstance.CUSTOMER_BALANCE_LIST) {

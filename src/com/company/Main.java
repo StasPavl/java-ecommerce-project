@@ -101,8 +101,10 @@ public class Main {
 
                     break;
                 case 5://place an order
-                    Map<Product,Integer> map = new HashMap<>();
-                    cart.setProductMap(map);
+                    if (cart.getProductMap() == null) {
+                        Map<Product, Integer> map = new HashMap<>();
+                        cart.setProductMap(map);
+                    }
                     while(true){
                         System.out.println("which product you want to add to your car. For exit product selection type: exit");
 
